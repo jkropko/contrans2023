@@ -8,6 +8,6 @@ RUN pip install -r requirements.txt
 
 ENV secretpassword=whenyourehereyourefamily
 
-WORKDIR /contrans
+WORKDIR /contrans2023
 
 CMD ["jupyter", "lab", "--ip=0.0.0.0","--allow-root"]
