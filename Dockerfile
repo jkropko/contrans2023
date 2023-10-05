@@ -8,6 +8,9 @@ RUN pip install --upgrade pip
 
 RUN pip install -r requirements.txt
 
+RUN playwright install chromium
+RUN playwright install-deps 
+
 WORKDIR /contrans2023
 
 EXPOSE 8888
