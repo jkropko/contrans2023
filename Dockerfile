@@ -8,8 +8,10 @@ RUN pip install --upgrade pip
 
 RUN pip install -r requirements.txt
 
-RUN playwright install chromium
-RUN playwright install-deps 
+RUN curl -fsSL https://deb.nodesource.com/setup_19.x | bash - &&\
+apt-get install -y nodejs
+
+RUN npm install -g dbdocs
 
 WORKDIR /contrans2023
 
