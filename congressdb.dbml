@@ -1,0 +1,115 @@
+Project CongressDB {
+  database_type: 'PostgreSQL'
+  Note: '''
+    # A database containing biographical information about members of the current Congress, along with committee assignments, voting records, and financial contributions.
+  '''
+}
+Table members as M {
+    bioguideid varchar [pk]
+    cid varchar
+    icpsr int
+    birthyear int
+    currentmember int
+    directordername varchar
+    firstname varchar
+    honorificname varchar
+    invertedordername varchar
+    lastname varchar
+    officialwebsiteurl varchar
+    state varchar
+    updatedate varchar
+    addressinformation_city  varchar
+    addressinformation_district varchar
+    addressinformation_officeaddress varchar
+    addressinformation_phonenumber varchar
+    addressinformation_zipcode int
+    cosponsoredlegislation_count int
+    cosponsoredlegislation_url varchar
+    depiction_attribution varchar
+    depiction_imageurl varchar
+    sponsoredlegislation_count int
+    sponsoredlegislation_url varchar
+    middlename varchar
+    suffixname varchar
+    nickname varchar
+    district int
+    party varchar
+    ideology float
+}
+Table committees as C {
+    systemcode varchar [pk]
+    chamber varchar
+    committeetypecode varchar
+    name varchar
+    url varchar
+    parent_name varchar
+    parent_systemcode varchar
+    parent_url varchar
+}
+Table committee_members as CM {
+    committee_code varchar [pk]
+    bioguide varchar [pk]
+    rank float
+    title varchar
+}
+Table terms as T {
+    bioguideid varchar [pk]
+    congress int [pk]
+    chamber varchar 
+    endyear float
+    membertype varchar
+    startyear int
+    statecode varchar
+    statename varchar
+    district float
+    dtype varchar
+}
+Table leadership as L {
+    bioguideid object [pk]
+    congress int
+    type varchar
+    current int
+}
+Table contributions as CT {
+    cid varchar [pk]
+    org_name varchar [pk]
+    total int 
+    pac int 
+    ndiv int 
+}
+Table bills as B {
+    type varchar [pk]
+    number float [pk]
+    sponsorid varchar
+    introduceddate varchar
+    title varchar
+    url varchar
+    latestaction_actiondate varchar
+    latestaction_text varchar
+    policyarea_name varchar
+    amendmentnumber float
+    latestaction varchar
+    latestaction_actiontime varchar
+}
+Table votesim as VS {
+    icpsr int [pk]
+    member_compare int [pk]
+    affinity_score float
+}
+
+Ref: M.bioguideid < CM.bioguide	
+Ref: M.bioguideid < T.bioguideid
+Ref: M.bioguideid < L.bioguideid
+Ref: M.bioguideid < B.sponsorid
+Ref: M.cid < CT.cid
+Ref: M.icpsr < VS.icpsr 
+Ref: M.icpsr < VS.member_compare
+Ref: CM.bioguide <> T.bioguideid 
+Ref: CM.bioguide <> L.bioguideid
+Ref: CM.bioguide <> B.sponsorid
+Ref: T.bioguideid <> L.bioguideid
+Ref: T.bioguideid <> B.sponsorid
+Ref: L.bioguideid <> B.sponsorid
+Ref: C.systemcode < CM.committee_code
+
+
