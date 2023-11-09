@@ -21,9 +21,21 @@ services:
       - postgresdata:/var/lib/postgresql/data
     networks:
       - dbnetwork
-
+  
+  
+  mongo:
+    image: mongo:latest
+    env_file:
+      - .env
+    volumes: 
+      - mongodata:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - dbnetwork
 volumes:
   postgresdata:
+  mongodata:
 
 networks:
   dbnetwork:

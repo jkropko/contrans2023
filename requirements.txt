@@ -12,3 +12,4 @@ matplotlib==3.7.3
 nbconvert[webpdf]==7.9.2
 lxml==4.9.3
 xmltodict==0.13.0
+pymongo==4.6.0
